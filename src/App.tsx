@@ -4,7 +4,7 @@ import QuestionCard from './components/QuestionCard';
 import { QuestionState, Difficulty } from './API';
 import { GlobalStyle, Wrapper } from './App.styles';
 
-type AnswerObject = {
+export type AnswerObject = {
   question: string;
   answer: string;
   correct: boolean;
@@ -51,11 +51,11 @@ const App: React.FC = () => {
   };
 
   const nextQuestion = () => {
-    const nextQ = number + 1;
-    if (nextQ === TOTAL_QUESTIONS) {
+    const nextQuestion = number + 1;
+    if (nextQuestion === TOTAL_QUESTIONS) {
       setGameOver(true);
     } else {
-      setNumber(nextQ);
+      setNumber(nextQuestion);
     }
   };
 
@@ -69,7 +69,7 @@ const App: React.FC = () => {
             Start
           </button>
         ) : null}
-        {!gameOver ? <p className='score'>Score:</p> : null}
+        {!gameOver ? <p className='score'>Score: {score}</p> : null}
         {loading ? <p>Loading Questions ...</p> : null}
         {!loading && !gameOver && (
           <QuestionCard

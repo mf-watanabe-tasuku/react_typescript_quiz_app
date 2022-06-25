@@ -37,7 +37,7 @@ export const Wrapper = styled.div`
     }
 
     h1 {
-        font-family: Fascinate Inline;
+        font-family: Fascinate Inline, 'Arial Narrow Bold', sans-serif;
         background-image: linear-gradient(180deg, #fff, #87f1ff);
         font-weight: 400;
         background-size: 100%;
