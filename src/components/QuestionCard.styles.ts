@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  max-width: 1100px;
+  width: 600px;
   background: #ebfeff;
   border-radius: 10px;
   border: 2px solid #0085a3;

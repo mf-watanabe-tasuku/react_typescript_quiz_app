@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
         background-image: url(${BGImage});
         background-size: cover;
         margin: 0;
-        padding: 0 20px;
+        padding: 20px;
         display: flex;
         justify-content: center;
     }
@@ -28,12 +28,14 @@ export const Wrapper = styled.div`
 
     > p {
         color: #fff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     .score {
         color: #fff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
         font-size: 2rem;
-        margin: 0;
+        margin: 0 0 1.5rem;
     }
 
     h1 {
