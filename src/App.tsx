@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { fetchQuizQuestions } from './API';
 import QuestionCard from './components/QuestionCard';
-import { QuestionState, Difficulty } from './API';
+import { QuestionState, Difficulties } from './API';
 import { GlobalStyle, Wrapper } from './App.styles';
 
 export type AnswerObject = {
@@ -14,6 +14,7 @@ export type AnswerObject = {
 const TOTAL_QUESTIONS = 3;
 
 const App: React.FC = () => {
+  const [currentDifficulty, setCurrentDifficulty] = useState(Difficulties[0]);
   const [buttonText, setButtonText] = useState('Start');
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
@@ -33,7 +34,7 @@ const App: React.FC = () => {
     setGameOver(false);
     const newQuestions = await fetchQuizQuestions(
       TOTAL_QUESTIONS,
-      Difficulty.EASY
+      currentDifficulty
     );
     setQuestions(newQuestions);
     setScore(0);
@@ -66,11 +67,35 @@ const App: React.FC = () => {
     }
   };
 
+  const handleCurrentDifficulty = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentDifficulty(e.currentTarget.value);
+  };
+
   return (
     <>
       <GlobalStyle />
       <Wrapper>
         <h1>REACT QUIZ</h1>
+        <div>
+          <p>Choose Difficulty</p>
+          <div>
+            {Difficulties.map((difficulty) => {
+              return (
+                <Fragment key={difficulty}>
+                  <input
+                    type='radio'
+                    id={difficulty}
+                    name='difficulty'
+                    value={difficulty}
+                    checked={currentDifficulty === difficulty}
+                    onChange={handleCurrentDifficulty}
+                  />
+                  <label htmlFor={difficulty}>{difficulty.toUpperCase()}</label>
+                </Fragment>
+              );
+            })}
+          </div>
+        </div>
         {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
           <button className='start' onClick={startTrivia}>
             {buttonText}
