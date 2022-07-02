@@ -52,6 +52,7 @@ export const Wrapper = styled.div`
         font-size: 70px;
         text-align: center;
         margin: 20px;
+        user-select: none;
     }
 
     .start, .next {
@@ -59,7 +60,7 @@ export const Wrapper = styled.div`
         background: linear-gradient(180def, #fff, #ffcc91);
         border: 2px solid #d38558;
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
-        border-radius: 10px;
+        border-radius: 5px;
         height: 40px;
         margin: 20px 0;
         padding: 0 40px;
