@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { fetchQuizQuestions } from './API';
 import QuestionCard from './components/QuestionCard';
 import { QuestionState, Difficulty } from './API';
@@ -14,12 +14,19 @@ export type AnswerObject = {
 const TOTAL_QUESTIONS = 3;
 
 const App: React.FC = () => {
+  const [buttonText, setButtonText] = useState('Start');
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [number, setNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
+
+  useEffect(() => {
+    if (userAnswers.length === TOTAL_QUESTIONS) {
+      setButtonText('Try Again');
+    }
+  }, [userAnswers]);
 
   const startTrivia = async () => {
     setLoading(true);
@@ -66,7 +73,7 @@ const App: React.FC = () => {
         <h1>REACT QUIZ</h1>
         {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
           <button className='start' onClick={startTrivia}>
-            Start
+            {buttonText}
           </button>
         ) : null}
         {!gameOver ? <p className='score'>Score: {score}</p> : null}
