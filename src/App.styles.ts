@@ -19,6 +19,24 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Catamaran', sans-serif;
         box-sizing: border-box;
     }
+
+    input {
+        margin: 0;
+    }
+
+    .btn {
+        cursor: pointer;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+    }
+
+    .stack > * + * {
+        margin-top: 50px;
+    }
+
+    .center {
+        text-align: center;
+    }
 `;
 
 export const Wrapper = styled.div`
@@ -32,10 +50,8 @@ export const Wrapper = styled.div`
     }
 
     .score {
-        color: #fff;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
         font-size: 2rem;
-        margin: 0 0 1.5rem;
+        margin: 0;
     }
 
     h1 {
@@ -55,18 +71,64 @@ export const Wrapper = styled.div`
         user-select: none;
     }
 
-    .start, .next {
-        cursor: pointer;
-        background: linear-gradient(180def, #fff, #ffcc91);
-        border: 2px solid #d38558;
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
-        border-radius: 5px;
+    .start, .next, .change {
         height: 40px;
-        margin: 20px 0;
         padding: 0 40px;
+    }
+
+    .start, .next {
+        background: #fff;
+        border: 2px solid #f6b026;
     }
 
     .start {
         max-width: 200px;
+    }
+
+    .change {
+        color: #777;
+        background: #f0f0f0;
+        border: 2px solid #a0a0a0;
+    }
+
+    .retry {
+        color: #fff;
+        background: #f6b026;
+        border: 2px solid #f7da3d;
+    }
+
+    .difficultyBox {
+        display: grid;
+        column-gap: 1rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .difficultyButton input[type="radio"] {
+        display: none;
+
+        :checked + label  {
+            background-color: #ebfeff;
+            border: 2px solid #0085a3;
+        }
+
+        + label  {
+            display: block;
+            cursor: pointer;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px 30px;
+            border: 2px solid #fff;
+        }
+    }
+
+    .btnBoxWrap {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btnBox {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1rem;
     }
 `;

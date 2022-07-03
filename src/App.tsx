@@ -71,56 +71,82 @@ const App: React.FC = () => {
     setCurrentDifficulty(e.currentTarget.value);
   };
 
+  const handleDifficultyChange = () => {
+    setGameOver(true);
+    setQuestions([]);
+    setScore(0);
+    setUserAnswers([]);
+    setNumber(0);
+  };
+
   return (
     <>
       <GlobalStyle />
       <Wrapper>
         <h1>REACT QUIZ</h1>
-        <div>
-          <p>Choose Difficulty</p>
-          <div>
-            {Difficulties.map((difficulty) => {
-              return (
-                <Fragment key={difficulty}>
-                  <input
-                    type='radio'
-                    id={difficulty}
-                    name='difficulty'
-                    value={difficulty}
-                    checked={currentDifficulty === difficulty}
-                    onChange={handleCurrentDifficulty}
-                  />
-                  <label htmlFor={difficulty}>{difficulty.toUpperCase()}</label>
-                </Fragment>
-              );
-            })}
-          </div>
+        <div className='stack center'>
+          {gameOver && (
+            <>
+              <div>
+                <p>Choose Difficulty</p>
+                <div className='difficultyBox'>
+                  {Difficulties.map((difficulty) => {
+                    return (
+                      <div key={difficulty} className='difficultyButton'>
+                        <input
+                          type='radio'
+                          id={difficulty}
+                          name='difficulty'
+                          value={difficulty}
+                          checked={currentDifficulty === difficulty}
+                          onChange={handleCurrentDifficulty}
+                        />
+                        <label htmlFor={difficulty} className='btn'>
+                          {difficulty.toUpperCase()}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <button className='start btn' onClick={startTrivia}>
+                Start Quiz
+              </button>
+            </>
+          )}
+          {!gameOver ? <p className='score'>Score: {score}</p> : null}
+          {loading ? <p>Loading Questions ...</p> : null}
+          {!loading && !gameOver && (
+            <QuestionCard
+              questionNumber={number + 1}
+              totalQuestions={TOTAL_QUESTIONS}
+              question={questions[number].question}
+              answers={questions[number].answers}
+              userAnswer={userAnswers ? userAnswers[number] : undefined}
+              callback={checkAnswer}
+            />
+          )}
+          {!gameOver &&
+          !loading &&
+          userAnswers.length === number + 1 &&
+          number !== TOTAL_QUESTIONS - 1 ? (
+            <button className='next btn' onClick={nextQuestion}>
+              Next Question
+            </button>
+          ) : null}
+          {!loading && userAnswers.length === TOTAL_QUESTIONS && (
+            <div className='btnBoxWrap'>
+              <div className='btnBox'>
+                <button className='change btn' onClick={handleDifficultyChange}>
+                  Change Difficulty
+                </button>
+                <button className='retry btn' onClick={startTrivia}>
+                  Try Again
+                </button>
+              </div>
+            </div>
+          )}
         </div>
-        {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-          <button className='start' onClick={startTrivia}>
-            {buttonText}
-          </button>
-        ) : null}
-        {!gameOver ? <p className='score'>Score: {score}</p> : null}
-        {loading ? <p>Loading Questions ...</p> : null}
-        {!loading && !gameOver && (
-          <QuestionCard
-            questionNumber={number + 1}
-            totalQuestions={TOTAL_QUESTIONS}
-            question={questions[number].question}
-            answers={questions[number].answers}
-            userAnswer={userAnswers ? userAnswers[number] : undefined}
-            callback={checkAnswer}
-          />
-        )}
-        {!gameOver &&
-        !loading &&
-        userAnswers.length === number + 1 &&
-        number !== TOTAL_QUESTIONS - 1 ? (
-          <button className='next' onClick={nextQuestion}>
-            Next Question
-          </button>
-        ) : null}
       </Wrapper>
     </>
   );
