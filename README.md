@@ -1,4 +1,4 @@
-# React/TypeScript Quiz App
+# React TypeScript Quiz App
 
 [https://react-typescript-quiz-app.herokuapp.com/](https://react-typescript-quiz-app.herokuapp.com/)
 
@@ -18,7 +18,7 @@
 ## Set up
 
 ```
-cd youtube_react_quiz
+cd react_typescript_quiz_app
 yarn install
 yarn start
 ```
