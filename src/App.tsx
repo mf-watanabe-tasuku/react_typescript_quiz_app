@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import { useState } from 'react';
 import { fetchQuizQuestions } from './API';
 import QuestionCard from './components/QuestionCard';
 import { QuestionState, Difficulties } from './API';
@@ -15,19 +15,12 @@ const TOTAL_QUESTIONS = 3;
 
 const App: React.FC = () => {
   const [currentDifficulty, setCurrentDifficulty] = useState(Difficulties[0]);
-  const [buttonText, setButtonText] = useState('Start');
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [number, setNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
-
-  useEffect(() => {
-    if (userAnswers.length === TOTAL_QUESTIONS) {
-      setButtonText('Try Again');
-    }
-  }, [userAnswers]);
 
   const startTrivia = async () => {
     setLoading(true);
@@ -85,7 +78,7 @@ const App: React.FC = () => {
       <Wrapper>
         <h1>REACT QUIZ</h1>
         <div className='stack center'>
-          {gameOver && (
+          {gameOver ? (
             <>
               <div>
                 <p>Choose Difficulty</p>
@@ -113,8 +106,9 @@ const App: React.FC = () => {
                 Start Quiz
               </button>
             </>
+          ) : (
+            <p className='score'>Score: {score}</p>
           )}
-          {!gameOver ? <p className='score'>Score: {score}</p> : null}
           {loading ? <p>Loading Questions ...</p> : null}
           {!loading && !gameOver && (
             <QuestionCard
