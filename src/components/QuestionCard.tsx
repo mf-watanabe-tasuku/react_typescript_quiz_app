@@ -1,4 +1,3 @@
-import React from 'react';
 import { AnswerObject } from '../App';
 import { Wrapper, ButtonWrapper } from './QuestionCard.styles';
 
