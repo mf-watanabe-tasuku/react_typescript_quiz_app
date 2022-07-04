@@ -11,7 +11,7 @@ export type AnswerObject = {
   correctAnswer: string;
 };
 
-const TOTAL_QUESTIONS = 3;
+const TOTAL_QUESTIONS = 5;
 
 const App: React.FC = () => {
   const [currentDifficulty, setCurrentDifficulty] = useState(Difficulties[0]);
